@@ -1,12 +1,14 @@
 import Header from '../../components/header/header';
 import { FormEvent, useRef } from 'react';
-import { getFakeUser } from '../../mocks/mock-messages';
+import { getFakeMessages, getFakeUser } from '../../mocks/mock-messages';
+import { Message } from '../../types/message';
 
 type LoginScreenProps = {
-    setLoginData: (loginData: {email: string, userName: string}) => void;
+    setLoginData: (loginData: Message | null) => void;
+    setMessagesList: (loginData: Message[] | null) => void;
 }
 
-function LoginScreen ({setLoginData}: LoginScreenProps): JSX.Element {
+function LoginScreen ({setLoginData, setMessagesList}: LoginScreenProps): JSX.Element {
     const loginRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
   
@@ -14,13 +16,12 @@ function LoginScreen ({setLoginData}: LoginScreenProps): JSX.Element {
       evt.preventDefault();
   
       if (loginRef.current && passwordRef.current) {
-        const data = getFakeUser(loginRef.current.value);
-        setLoginData({email: data.email, userName: data.username})
-        console.log(data);
+        const loginData = getFakeUser(loginRef.current.value);
+        const messagesData = getFakeMessages();
+        setLoginData(loginData)
+        setMessagesList(messagesData)
       }
-
     };
-
 
     return (
         <div className="page--login">
@@ -44,7 +45,6 @@ function LoginScreen ({setLoginData}: LoginScreenProps): JSX.Element {
                     id="email"
                     placeholder="Email"
                     required
-                    data-testid="loginElement"
                   />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
@@ -57,7 +57,6 @@ function LoginScreen ({setLoginData}: LoginScreenProps): JSX.Element {
                     id="password"
                     placeholder="Password"
                     required
-                    data-testid="passwordElement"
                   />
                 </div>
                 <button

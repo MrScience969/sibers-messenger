@@ -6954,11 +6954,11 @@ const MESSAGES: Message[] = [
 
 export const getFakeMessages = ( ): Message[]  => {return MESSAGES}
 
-export const getFakeUser = (email: string): Message | {email: '', username: ''} => {
+export const getFakeUser = (email: string): Message | null => {
     const message = MESSAGES.find((element) => element.email === email);
     if (message) {
         return message;
     } else {
-        return {email: '', username: ''}
+        return null;
     }
 }

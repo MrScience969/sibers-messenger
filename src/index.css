@@ -53,3 +53,25 @@ button:focus-visible {
   overflow:auto;
   float:right;
 }
+
+.messenger-wrapper {
+  display: grid;
+  grid-template-columns: 300px auto;
+  grid-template-rows: 50px auto;
+}
+
+.user_info-wrapper {
+  border: solid;
+}
+
+.chats_list-wrapper {
+  border: solid;
+}
+
+.chat_info-wrapper {
+  border: solid;
+}
+
+.chat_messages-wrapper {
+  border: solid;
+}

@@ -5,10 +5,12 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import MainScreen from '../../pages/main-screen.tsx/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen'
+import { Message } from '../../types/message';
 
 function App() {
-  const [loginData, setLoginData] = useState({email: '', userName: ''})
-  const isUserAuth = loginData.email !== '' && loginData.userName !== '';
+  const [loginData, setLoginData] = useState<Message | null>(null)
+  const [messagesList, setMessagesList] = useState<Message[] | null>(null)
+  const isUserAuth = !!loginData;
 
   return (
     <HelmetProvider>
@@ -16,11 +18,11 @@ function App() {
         <Routes>
           <Route
             path={AppRoute.Login}
-            element={isUserAuth ? <Navigate to={AppRoute.Main}/> : <LoginScreen setLoginData={setLoginData}/>}
+            element={isUserAuth ? <Navigate to={AppRoute.Main}/> : <LoginScreen setLoginData={setLoginData} setMessagesList={setMessagesList}/>}
             />
           <Route
             path={AppRoute.Main}
-            element={!isUserAuth ? <Navigate to={AppRoute.Login}/> : <MainScreen loginData={loginData}/>}
+            element={!isUserAuth ? <Navigate to={AppRoute.Login}/> : <MainScreen loginData={loginData} messagesList={messagesList}/>}
           />
         </Routes>
       </BrowserRouter>
