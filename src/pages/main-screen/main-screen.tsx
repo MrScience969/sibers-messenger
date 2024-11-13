@@ -4,13 +4,15 @@ import MessagesBlock from "../../components/messages-block/messages-block";
 import { Message } from "../../types/message";
 import UserData from "../../components/user-data/user-data";
 import ChatsList from "../../components/chats-list/chats-list";
+import ChatBlock from "../../components/chat-block/chat-block";
 
 type MainScreenProps = {
-    loginData: Message
-    messagesList: Message[]
+    loginData: Message;
+    messagesList: Message[] | null;
+    setMessagesList: (loginData: Message[] | null) => void;
 }
 
-function MainScreen ({loginData, messagesList}: MainScreenProps): JSX.Element {
+function MainScreen ({loginData, messagesList, setMessagesList}: MainScreenProps): JSX.Element {
 
     console.log(loginData);
     
@@ -25,9 +27,7 @@ function MainScreen ({loginData, messagesList}: MainScreenProps): JSX.Element {
                     информация о чате
                 </div>
                 <ChatsList loginData={loginData}/>
-                <div className="chat_messages-wrapper">
-                    сообщения
-                </div>
+                <ChatBlock messagesList={messagesList} setMessagesList={setMessagesList}/>
             </div>
         </div>
     )

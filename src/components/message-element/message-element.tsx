@@ -3,8 +3,6 @@ import { Message } from "../../types/message";
 type MessageProps = {
     message: Message;
   }
-  
-
 
 function MessageElement ({message}: MessageProps): JSX.Element {
     return (

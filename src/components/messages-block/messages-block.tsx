@@ -1,5 +1,5 @@
 import { Message } from "../../types/message";
-import MessageElement from "../message/message";
+import MessageElement from "../message-element/message-element";
 
 const messages: Message[] = [
     {
