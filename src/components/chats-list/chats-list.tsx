@@ -1,20 +1,24 @@
-import { Link } from "react-router-dom";
 import { Message } from "../../types/message";
+import './chats-list.css'
 
 type ChatsListProps ={
     loginData: Message
+    onChatClick: () => void;
 }
 
-function ChatsList ({loginData}: ChatsListProps): JSX.Element {
+function ChatsList ({loginData, onChatClick}: ChatsListProps): JSX.Element {
     return (
     <div className="chats_list-wrapper">
-        <ul className="chats_list">
-            {loginData.posts.map((post, index) => (
-            <li className="chat" key={index}>
-                {post.words[0]}
-            </li>
-            ))}
-        </ul>
+        <h1 className="visually-hidden">Список чатов</h1>
+        <div className="chats-content">
+            <ul className="chats_list">
+                {loginData.posts.map((post, index) => (
+                <li className="chat" key={index} onClick={onChatClick}>
+                    {post.words[0]}
+                </li>
+                ))}
+            </ul>
+        </div>
     </div>
     )
 }

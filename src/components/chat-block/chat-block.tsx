@@ -10,9 +10,7 @@ type ChatBlockProps = {
 
 function ChatBlock ({messagesList, setMessagesList}: ChatBlockProps): JSX.Element {
 
-    const onClickDelete = (evt) => {
-        evt.target.parentElement.remove();
-    }
+    const onClickDelete = () => {}
 
     const onClickAdd = () => {
         console.log('добвление');

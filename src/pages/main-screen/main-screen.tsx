@@ -14,7 +14,14 @@ type MainScreenProps = {
 
 function MainScreen ({loginData, messagesList, setMessagesList}: MainScreenProps): JSX.Element {
 
-    console.log(loginData);
+    let currentChat = null;
+
+    const onChatClick = (evt) => {
+        const userChat = evt.target.innerHTML
+        currentChat = messagesList?.filter((message) => message.posts.map((post) => post.words.includes(userChat)))
+        console.log(currentChat);
+        
+    }
     
     return (
         <div className="main-wrapper">
@@ -26,7 +33,7 @@ function MainScreen ({loginData, messagesList, setMessagesList}: MainScreenProps
                 <div className="chat_info-wrapper">
                     информация о чате
                 </div>
-                <ChatsList loginData={loginData}/>
+                <ChatsList loginData={loginData} onChatClick={onChatClick}/>
                 <ChatBlock messagesList={messagesList} setMessagesList={setMessagesList}/>
             </div>
         </div>
