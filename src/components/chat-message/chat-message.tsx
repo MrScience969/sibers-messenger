@@ -2,10 +2,11 @@ import { Message } from "../../types/message";
 
 type ChatMessageProps = {
     message: Message
+    onClickDelete: () => void;
 }
 
 
-function ChatMessage ({message}: ChatMessageProps): JSX.Element {
+function ChatMessage ({message, onClickDelete}: ChatMessageProps): JSX.Element {
     const {name} = message;
 
     return (
@@ -16,7 +17,11 @@ function ChatMessage ({message}: ChatMessageProps): JSX.Element {
             <p className="chat-message-text">
                 {message.posts[0].sentences}
             </p>
-            <button className="chat-message-button" type="button">
+            <button
+                className="chat-message-button"
+                type="button"
+                onClick={onClickDelete}
+            >
                 Удалить
             </button>
       </div>

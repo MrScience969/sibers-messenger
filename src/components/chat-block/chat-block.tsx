@@ -10,8 +10,13 @@ type ChatBlockProps = {
 
 function ChatBlock ({messagesList, setMessagesList}: ChatBlockProps): JSX.Element {
 
-    const onClickDelete = () => {
-        console.log('удалить');
+    const onClickDelete = (evt) => {
+        evt.target.parentElement.remove();
+    }
+
+    const onClickAdd = () => {
+        console.log('добвление');
+        
     }
 
     return (
@@ -19,14 +24,20 @@ function ChatBlock ({messagesList, setMessagesList}: ChatBlockProps): JSX.Elemen
             <h1 className="visually-hidden">Чат</h1>
             <div className="chat-content">
                 {messagesList && messagesList.map((message) => (
-                    <ChatMessage message={message} key={message.id}/>
+                    <ChatMessage message={message} key={message.id} onClickDelete={onClickDelete}/>
                 ))}
             </div>
 
             <form className="chat-form" action="https://echo.htmlacademy.ru" method="post">
                 <input className="chat-form-input" type="text" aria-label="Ваше сообщение" placeholder="Напишите что-нибудь" required>
                 </input>
-            <button className="chat-form-button" type="submit">Отправить</button>
+            <button
+                className="chat-form-button"
+                type="submit"
+                onClick={onClickAdd}
+            >
+                Отправить
+            </button>
             </form>
         </div>
 
