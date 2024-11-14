@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from "../../components/header/header";
-import MessagesBlock from "../../components/messages-block/messages-block";
 import { Message } from "../../types/message";
 import UserData from "../../components/user-data/user-data";
 import ChatsList from "../../components/chats-list/chats-list";
 import ChatBlock from "../../components/chat-block/chat-block";
+import { useState } from "react";
+import ChatInfo from "../../components/chat-info/chat-info";
 
 type MainScreenProps = {
     loginData: Message;
@@ -13,14 +14,13 @@ type MainScreenProps = {
 }
 
 function MainScreen ({loginData, messagesList, setMessagesList}: MainScreenProps): JSX.Element {
-
-    let currentChat = null;
+    const [currentChat, setCurrentChat] = useState<Message[] | null>(null)
+    const [currentChatInfo, setCurrentChatInfo] = useState<Message | null>(null)
 
     const onChatClick = (evt) => {
         const userChat = evt.target.innerHTML
-        currentChat = messagesList?.filter((message) => message.posts.map((post) => post.words.includes(userChat)))
-        console.log(currentChat);
-        
+        const filteredChat = messagesList?.filter((message) => (message.posts.map((post) => post.words.includes(userChat))).includes(true))
+        if (filteredChat) {setCurrentChat(filteredChat)}
     }
     
     return (
@@ -30,11 +30,9 @@ function MainScreen ({loginData, messagesList, setMessagesList}: MainScreenProps
             <MessagesBlock/> */}
             <div className="messenger-wrapper">
                 <UserData loginData={loginData}/>
-                <div className="chat_info-wrapper">
-                    информация о чате
-                </div>
+                <ChatInfo/>
                 <ChatsList loginData={loginData} onChatClick={onChatClick}/>
-                <ChatBlock messagesList={messagesList} setMessagesList={setMessagesList}/>
+                <ChatBlock messagesList={currentChat} setMessagesList={setMessagesList}/>
             </div>
         </div>
     )
